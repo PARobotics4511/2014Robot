@@ -162,16 +162,26 @@ SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBPATH =
 SimpleTemplate_partialImage/$(MODE_DIR)/% : LIBS = 
 SimpleTemplate_partialImage/$(MODE_DIR)/% : OBJ_DIR := SimpleTemplate_partialImage/$(MODE_DIR)
 
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/CIMPult.o : $(PRJ_ROOT_DIR)/Class\ definitions/CIMPult.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/ElToro.o : $(PRJ_ROOT_DIR)/Class\ definitions/ElToro.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/RobotCommands.o : $(PRJ_ROOT_DIR)/Class\ definitions/RobotCommands.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.o : $(PRJ_ROOT_DIR)/MyRobot.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
-SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/RobotCommands.o : $(PRJ_ROOT_DIR)/RobotCommands.cpp $(FORCE_FILE_BUILD)
-	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
-
-
-OBJECTS_SimpleTemplate_partialImage = SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.o \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/RobotCommands.o
+OBJECTS_SimpleTemplate_partialImage = SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/CIMPult.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/ElToro.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/RobotCommands.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.o
 
 SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage.o : $(OBJECTS_SimpleTemplate_partialImage)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc -r -nostdlib -Wl,-X  -o "$@" $(OBJECTS_SimpleTemplate_partialImage) $(LIBPATH) $(LIBS) $(ADDED_LIBPATH) $(ADDED_LIBS)  && if [ "$(EXPAND_DBG)" = "1" ]; then plink "$@";fi
@@ -185,7 +195,8 @@ SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_clean :
 
 force : 
 
-DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/RobotCommands.d
+DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/CIMPult.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/ElToro.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/RobotCommands.d \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.d
 -include $(DEP_FILES)
 
 

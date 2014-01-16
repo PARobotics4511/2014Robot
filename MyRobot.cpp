@@ -1,43 +1,29 @@
-#include "RobotCommands.h"
+#include "Class Definitions\Headers\RobotCommands.h"
 
-/**
- * This is a demo program showing the use of the RobotBase class.
- * The SimpleRobot class is the base of a robot application that will automatically call your
- * Autonomous and OperatorControl methods at the right time as controlled by the switches on
- * the driver station or the field controls.
- */ 
 class RobotDemo : public SimpleRobot
 {
-	RobotDrive myRobot; // robot drive system
-	Joystick stick; // only joystick
-	RobotCommands CIMeon;  //Our robot commands
+	RobotDrive myRobot;
+	Joystick stick;
+	RobotCommands CIMeon;
 
 public:
-	RobotDemo() : myRobot(1,2), stick(1), CIMeon() {
+	RobotDemo() : myRobot(4,5,6,7), stick(1), CIMeon() {
 		myRobot.SetExpiration(0.1);
 	}
 
-	/**
-	 * Drive left & right motors for 2 seconds then stop
-	 */
 	void Autonomous()
 	{
-		myRobot.SetSafetyEnabled(false);
-		myRobot.Drive(-0.5, 0.0); 	// drive forwards half speed
-		Wait(2.0); 				//    for 2 seconds
-		myRobot.Drive(0.0, 0.0); 	// stop robot
+		myRobot.SetSafetyEnabled(true);
+		//Do nothing for now
 	}
 
-	/**
-	 * Runs the motors with arcade steering. 
-	 */
 	void OperatorControl()
 	{
 		myRobot.SetSafetyEnabled(true);
 		while (IsOperatorControl())
 		{
-			myRobot.ArcadeDrive(stick); // drive with arcade style (use right stick)
-			Wait(0.005);				// wait for a motor update time
+			myRobot.MecanumDrive_Cartesian(0,0,0,0); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
+			Wait(0.005);
 		}
 	}
 	

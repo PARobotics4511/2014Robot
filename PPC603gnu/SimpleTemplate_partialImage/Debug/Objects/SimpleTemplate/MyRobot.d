@@ -1,7 +1,7 @@
 SimpleTemplate_partialImage/Debug/Objects/SimpleTemplate/MyRobot.o:  \
  C:/WindRiver/workspace/SimpleTemplate/MyRobot.cpp \
-  C:/WindRiver/workspace/SimpleTemplate/RobotCommands.h \
-  C:/WindRiver/workspace/SimpleTemplate/CIMPult.h \
+  C:/WindRiver/workspace/SimpleTemplate/Class\ Definitions\Headers\RobotCommands.h \
+  C:/WindRiver/workspace/SimpleTemplate/Class\ Definitions\Headers\/CIMPult.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/WPILib.h \
   C:/WindRiver/vxworks-6.3/target/h/string.h \
   C:/WindRiver/vxworks-6.3/target/h/types/vxANSI.h \
@@ -384,11 +384,12 @@ SimpleTemplate_partialImage/Debug/Objects/SimpleTemplate/MyRobot.o:  \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/Threshold.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
-  C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIErrors.h
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIErrors.h \
+  C:/WindRiver/workspace/SimpleTemplate/Class\ Definitions\Headers\/ElToro.h
 
-C:/WindRiver/workspace/SimpleTemplate/RobotCommands.h:
+C:/WindRiver/workspace/SimpleTemplate/Class\ Definitions\Headers\RobotCommands.h:
 
-C:/WindRiver/workspace/SimpleTemplate/CIMPult.h:
+C:/WindRiver/workspace/SimpleTemplate/Class\ Definitions\Headers\/CIMPult.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/WPILib.h:
 
@@ -1155,3 +1156,5 @@ C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/HSLImage.h:
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h:
 
 C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIErrors.h:
+
+C:/WindRiver/workspace/SimpleTemplate/Class\ Definitions\Headers\/ElToro.h:
