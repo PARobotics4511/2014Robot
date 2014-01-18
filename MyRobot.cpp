@@ -2,27 +2,26 @@
 
 class RobotDemo : public SimpleRobot
 {
-	RobotDrive myRobot;
-	Joystick stick;
+	Joystick notLogitech;
 	RobotCommands CIMeon;
 
 public:
-	RobotDemo() : myRobot(4,5,6,7), stick(1), CIMeon() {
-		myRobot.SetExpiration(0.1);
+	RobotDemo() : notLogitech(1), CIMeon() {
+		CIMeon.cComponents.DriveTrain.SetExpiration(0.1);
 	}
 
 	void Autonomous()
 	{
-		myRobot.SetSafetyEnabled(true);
+		CIMeon.cComponents.DriveTrain.SetSafetyEnabled(true);
 		//Do nothing for now
 	}
 
 	void OperatorControl()
 	{
-		myRobot.SetSafetyEnabled(true);
+		CIMeon.cComponents.DriveTrain.SetSafetyEnabled(true);
 		while (IsOperatorControl())
 		{
-			myRobot.MecanumDrive_Cartesian(0,0,0,0); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
+			CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(notLogitech.GetX(),notLogitech.GetY(),notLogitech.GetRawAxis(4)); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
 			Wait(0.005);
 		}
 	}

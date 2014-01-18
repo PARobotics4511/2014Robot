@@ -1,10 +1,8 @@
 #pragma once
-#include "CIMPult.h"
-#include "ElToro.h"
+#include "Components.h"
 
 class RobotCommands {
 public:
 	RobotCommands(void);
-	CIMPult cCIMPult;
-	ElToro cElToro;
+	Components cComponents;
 };

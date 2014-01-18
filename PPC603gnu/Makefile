@@ -166,6 +166,10 @@ SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definition
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
 
+SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/Components.o : $(PRJ_ROOT_DIR)/Class\ definitions/Components.cpp $(FORCE_FILE_BUILD)
+	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
+
+
 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/ElToro.o : $(PRJ_ROOT_DIR)/Class\ definitions/ElToro.cpp $(FORCE_FILE_BUILD)
 	$(TRACE_FLAG)if [ ! -d "`dirname "$@"`" ]; then mkdir -p "`dirname "$@"`"; fi;echo "building $@"; $(TOOL_PATH)ccppc $(DEBUGFLAGS_C++-Compiler) $(CC_ARCH_SPEC) -ansi -Wall  -MD -MP -mlongcall $(ADDED_C++FLAGS) $(IDE_INCLUDES) $(ADDED_INCLUDES) -DCPU=$(CPU) -DTOOL_FAMILY=$(TOOL_FAMILY) -DTOOL=$(TOOL) -D_WRS_KERNEL   $(DEFINES) -o "$@" -c "$<"
 
@@ -179,6 +183,7 @@ SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.o : $(PRJ
 
 
 OBJECTS_SimpleTemplate_partialImage = SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/CIMPult.o \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/Components.o \
 	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/ElToro.o \
 	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/RobotCommands.o \
 	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.o
@@ -195,8 +200,8 @@ SimpleTemplate_partialImage/$(MODE_DIR)/SimpleTemplate_partialImage_clean :
 
 force : 
 
-DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/CIMPult.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/ElToro.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/RobotCommands.d \
-	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.d
+DEP_FILES := SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/CIMPult.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/Components.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/ElToro.d \
+	 SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/Class\ definitions/RobotCommands.d SimpleTemplate_partialImage/$(MODE_DIR)/Objects/SimpleTemplate/MyRobot.d
 -include $(DEP_FILES)
 
 
