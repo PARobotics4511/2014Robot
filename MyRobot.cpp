@@ -1,4 +1,5 @@
 #include "Class Definitions\Headers\RobotCommands.h"
+#include <cmath>
 
 class RobotDemo : public SimpleRobot
 {
