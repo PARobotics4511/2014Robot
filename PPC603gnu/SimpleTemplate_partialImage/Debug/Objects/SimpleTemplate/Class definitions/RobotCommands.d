@@ -387,7 +387,11 @@
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/ColorImage.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIErrors.h \
   C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/CIMPult.h \
-  C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/ElToro.h
+  C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/ElToro.h \
+  C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/EyePad.h \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/RGBImage.h \
+  C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h \
+  C:/WindRiver/vxworks-6.3/target/h/Math.h
 
 C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\RobotCommands.h:
 
@@ -1162,3 +1166,11 @@ C:/WindRiver/vxworks-6.3/target/h/WPILib/WPIErrors.h:
 C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/CIMPult.h:
 
 C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/ElToro.h:
+
+C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/EyePad.h:
+
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/RGBImage.h:
+
+C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h:
+
+C:/WindRiver/vxworks-6.3/target/h/Math.h:

@@ -17,6 +17,8 @@ void _GLOBAL__I__ZN6ElToroC2Ev();
 
 void _GLOBAL__I__ZN7CIMPultC2Ev();
 
+void _GLOBAL__I_verticalTargets();
+
 void _GLOBAL__I__ZN12PrintCommandC2EPKc();
 
 void _GLOBAL__I__ZN9Scheduler9_instanceE();
@@ -77,6 +79,7 @@ void (*_ctors[])() =
     _GLOBAL__I__ZN13RobotCommandsC2Ev,
     _GLOBAL__I__ZN6ElToroC2Ev,
     _GLOBAL__I__ZN7CIMPultC2Ev,
+    _GLOBAL__I_verticalTargets,
     _GLOBAL__I__ZN12PrintCommandC2EPKc,
     _GLOBAL__I__ZN9Scheduler9_instanceE,
     _GLOBAL__I__ZN11WaitCommandC2Ed,
@@ -115,6 +118,8 @@ void _GLOBAL__D__ZN13RobotCommandsC2Ev();
 void _GLOBAL__D__ZN6ElToroC2Ev();
 
 void _GLOBAL__D__ZN7CIMPultC2Ev();
+
+void _GLOBAL__D_verticalTargets();
 
 void _GLOBAL__D__ZN9Scheduler9_instanceE();
 
@@ -166,6 +171,7 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN13RobotCommandsC2Ev,
     _GLOBAL__D__ZN6ElToroC2Ev,
     _GLOBAL__D__ZN7CIMPultC2Ev,
+    _GLOBAL__D_verticalTargets,
     _GLOBAL__D__ZN9Scheduler9_instanceE,
     _GLOBAL__D_wpi_error_s_ModuleIndexOutOfRange,
     _GLOBAL__D__ZN17MotorSafetyHelper12m_headHelperE,

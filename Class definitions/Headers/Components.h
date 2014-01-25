@@ -2,6 +2,7 @@
 #include "WPILib.h"
 #include "CIMPult.h"
 #include "ElToro.h"
+#include "EyePad.h"
 
 class Components {
 public:
@@ -11,6 +12,7 @@ public:
 	
 	//Drive components
 	RobotDrive DriveTrain;
+	EyePad cEyePad;
 	Talon DriveTalon1;
 	Talon DriveTalon2;
 	Talon DriveTalon3;

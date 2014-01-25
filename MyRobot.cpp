@@ -19,9 +19,11 @@ public:
 
 	void OperatorControl()
 	{
+		bool buttonPressed1 = false;
 		float deadzone_y = notLogitech.GetX();
 		float deadzone_x = -notLogitech.GetY();
 		float deadzone_z = notLogitech.GetRawAxis(4)/3.0;
+		
 		while (IsOperatorControl())
 		{
 			deadzone_x = -notLogitech.GetY();
@@ -35,6 +37,12 @@ public:
 			if (abs(deadzone_z) < 0.15) {
 				deadzone_z = 0;
 			}
+			
+			if (notLogitech.GetRawButton(1) and not buttonPressed1) {
+				CIMeon.cComponents.cEyePad.picFunctions();
+				buttonPressed1 = true;
+			}
+			else buttonPressed1 = false;
 			
 			CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(deadzone_x, deadzone_y, deadzone_z+0.025); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
 			
