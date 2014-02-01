@@ -53,8 +53,9 @@ public:
 	double ratioToScore(double ratio);
 	bool hotOrNot(TargetReport target);
 	double computeDistance (BinaryImage *image, ParticleAnalysisReport *report);
+	DriverStationLCD *m_LCD;
 	
-	//AxisCamera &camera;
+	//AxisCamera camera;
 	Scores *scores;
 	TargetReport target;
 };

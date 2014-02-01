@@ -1,17 +1,19 @@
 #include "Headers/EyePad.h"
+#include <cmath>
 
 int verticalTargets[MAX_PARTICLES];
 int horizontalTargets[MAX_PARTICLES];
 int verticalTargetCount, horizontalTargetCount;
-Threshold threshold(0, 255, 0, 75, 200, 255);	//HSV threshold criteria, ranges are in that order ie. Hue is 60-100
+Threshold threshold(115, 145, 0x0, 255, 205, 255);	//HSV threshold criteria, ranges are in that order ie. Hue is 60-100
 ParticleFilterCriteria2 criteria[] = {
 	{IMAQ_MT_AREA, AREA_MINIMUM, 65535, false, false}
 };
 
-AxisCamera &camera = AxisCamera::GetInstance();
-
+AxisCamera &camera = AxisCamera::GetInstance("10.45.11.11");
 //Initialize camera!!!!
+//EyePad::EyePad() : camera("10.45.11.11") {}
 EyePad::EyePad() {
+	m_LCD = DriverStationLCD::GetInstance();
 }
 
 //Functions for taking and analyzing the picture
@@ -29,6 +31,8 @@ void EyePad::picFunctions() {
 	verticalTargetCount = horizontalTargetCount = 0;
 	scores = new Scores[reports->size()];
 	
+	double height;
+	
 	if(scores > 0) {
 		for (unsigned int i = 0; i < MAX_PARTICLES && i < reports->size(); i++) {
 			ParticleAnalysisReport *report = &(reports->at(i));
@@ -40,18 +44,18 @@ void EyePad::picFunctions() {
 						
 			//Check if the particle is a horizontal target, if not, check if it's a vertical target
 			if(scoreCompare(scores[i], false)) {
-				printf("particle: %d  is a Horizontal Target centerX: %d  centerY: %d \n", i, report->center_mass_x, report->center_mass_y);
+				//m_LCD->Printf(DriverStationLCD::Line(0),1,"ptcle %d is a H-Targ centX: %d centY: %d", i, report->center_mass_x, report->center_mass_y);
 				horizontalTargets[horizontalTargetCount++] = i; //Add particle to target array and increment count
 			}
 			else if (scoreCompare(scores[i], true)) {
-				printf("particle: %d  is a Vertical Target centerX: %d  centerY: %d \n", i, report->center_mass_x, report->center_mass_y);
+				//m_LCD->Printf(DriverStationLCD::Line(0),1,"ptcle %d is a V-Targ centX: %d centY: %d", i, report->center_mass_x, report->center_mass_y);
 				verticalTargets[verticalTargetCount++] = i;  //Add particle to target array and increment count
 			}
 			else {
-				printf("particle: %d  is not a Target centerX: %d  centerY: %d \n", i, report->center_mass_x, report->center_mass_y);
+				//m_LCD->Printf(DriverStationLCD::Line(0),1,"particle: %d  is not a Target centerX: %d  centerY: %d \n", i, report->center_mass_x, report->center_mass_y);
 			}
-			printf("Scores rect: %f  ARvert: %f \n", scores[i].rectangularity, scores[i].aspectRatioVertical);
-			printf("ARhoriz: %f  \n", scores[i].aspectRatioHorizontal);	
+			//m_LCD->Printf(DriverStationLCD::Line(1),1,"Scores rect: %f  ARvert: %f", scores[i].rectangularity, scores[i].aspectRatioVertical);
+			//m_LCD->Printf(DriverStationLCD::Line(2),1,"ARhoriz: %f", scores[i].aspectRatioHorizontal);	
 		}
 	
 
@@ -60,6 +64,7 @@ void EyePad::picFunctions() {
 		target.verticalIndex = verticalTargets[0];
 		for (int i = 0; i < verticalTargetCount; i++) {
 			ParticleAnalysisReport *verticalReport = &(reports->at(verticalTargets[i]));
+			height = verticalReport->boundingRect.height;
 			for (int j = 0; j < horizontalTargetCount; j++) {
 				ParticleAnalysisReport *horizontalReport = &(reports->at(horizontalTargets[j]));
 				double horizWidth, horizHeight, vertWidth, leftScore, rightScore, tapeWidthScore, verticalScore, total;
@@ -100,16 +105,16 @@ void EyePad::picFunctions() {
 			//Information about the target is contained in the "target" structure
 			//To get measurement information such as sizes or locations use the
 			//horizontal or vertical index to get the particle report as shown below
-			ParticleAnalysisReport *distanceReport = &(reports->at(target.verticalIndex));
-			double distance = computeDistance(filteredImage, distanceReport);
+			//ParticleAnalysisReport *distanceReport = &(reports->at(target.verticalIndex));
+			//double distance = computeDistance(filteredImage, distanceReport);
+			double distance = 0.852/tan((0.445*height/Y_IMAGE_RES));
 			if(target.Hot) {
-				printf("Hot target located \n");
-				printf("Distance: %f \n", distance);
+				m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: True ");
 			}
 			else {
-				printf("No hot target present \n");
-				printf("Distance: %f \n", distance);
+				m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: False");
 			}
+			m_LCD->Printf(DriverStationLCD::Line(1),1,"Distance: %f", distance);
 		}
 	}
 }

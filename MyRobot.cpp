@@ -41,6 +41,7 @@ public:
 			if (notLogitech.GetRawButton(1) and not buttonPressed1) {
 				CIMeon.cComponents.cEyePad.picFunctions();
 				buttonPressed1 = true;
+				CIMeon.cComponents.cEyePad.m_LCD->UpdateLCD();
 			}
 			else buttonPressed1 = false;
 			
