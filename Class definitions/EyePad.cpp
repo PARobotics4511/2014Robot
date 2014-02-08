@@ -12,7 +12,7 @@ ParticleFilterCriteria2 criteria[] = {
 AxisCamera &camera = AxisCamera::GetInstance("10.45.11.11");
 //Initialize camera!!!!
 //EyePad::EyePad() : camera("10.45.11.11") {}
-EyePad::EyePad() {
+EyePad::EyePad() : rDistance(distance) {
 	m_LCD = DriverStationLCD::GetInstance();
 }
 
@@ -107,7 +107,7 @@ void EyePad::picFunctions() {
 			//horizontal or vertical index to get the particle report as shown below
 			//ParticleAnalysisReport *distanceReport = &(reports->at(target.verticalIndex));
 			//double distance = computeDistance(filteredImage, distanceReport);
-			double distance = 0.852/tan((0.445*height/Y_IMAGE_RES));
+			//distance = 0.852/tan((0.445*height/Y_IMAGE_RES));
 			if(target.Hot) {
 				m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: True ");
 			}
@@ -174,6 +174,7 @@ bool EyePad::hotOrNot(TargetReport target) {
 }
 
 double EyePad::computeDistance (BinaryImage *image, ParticleAnalysisReport *report) {
+	/*
 	double rectLong, height;
 	int targetHeight;
 		
@@ -184,4 +185,11 @@ double EyePad::computeDistance (BinaryImage *image, ParticleAnalysisReport *repo
 	targetHeight = 32;
 		
 	return Y_IMAGE_RES * targetHeight / (height * 12 * 2 * tan(VIEW_ANGLE*PI/(180*2)));
+	*/
+	distance = 0.852/tan((0.445*report->boundingRect.height/Y_IMAGE_RES));
+	return distance;
+}
+
+double EyePad::getAlignment(void) {
+	return 0;
 }
