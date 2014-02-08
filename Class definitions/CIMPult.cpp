@@ -12,5 +12,5 @@ bool CIMPult::CheckLoad(void) {
 }
 
 double CIMPult::ArmPosition(void) {
-	return 3.14159;
+	return 3.14159265358979;
 }
