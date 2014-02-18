@@ -12,8 +12,7 @@ ParticleFilterCriteria2 criteria[] = {
 AxisCamera &camera = AxisCamera::GetInstance("10.45.11.11");
 //Initialize camera!!!!
 //EyePad::EyePad() : camera("10.45.11.11") {}
-EyePad::EyePad() : rDistance(distance) {
-	m_LCD = DriverStationLCD::GetInstance();
+EyePad::EyePad() : rDistance(distance), rHot(hot) {
 }
 
 //Functions for taking and analyzing the picture
@@ -109,12 +108,11 @@ void EyePad::picFunctions() {
 			//double distance = computeDistance(filteredImage, distanceReport);
 			//distance = 0.852/tan((0.445*height/Y_IMAGE_RES));
 			if(target.Hot) {
-				m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: True ");
+				hot = true;
 			}
 			else {
-				m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: False");
+				hot = false;
 			}
-			m_LCD->Printf(DriverStationLCD::Line(1),1,"Distance: %f", distance);
 		}
 	}
 }

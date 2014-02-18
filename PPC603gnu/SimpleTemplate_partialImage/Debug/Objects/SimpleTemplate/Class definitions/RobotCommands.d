@@ -396,7 +396,8 @@
   C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/EyePad.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/RGBImage.h \
   C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h \
-  C:/WindRiver/vxworks-6.3/target/h/Math.h
+  C:/WindRiver/vxworks-6.3/target/h/Math.h \
+  C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/Potentiometer.h
 
 C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\RobotCommands.h:
 
@@ -1189,3 +1190,5 @@ C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/RGBImage.h:
 C:/WindRiver/vxworks-6.3/target/h/WPILib/Vision/BinaryImage.h:
 
 C:/WindRiver/vxworks-6.3/target/h/Math.h:
+
+C:/WindRiver/workspace/SimpleTemplate/Class\ definitions/Headers\/Potentiometer.h:

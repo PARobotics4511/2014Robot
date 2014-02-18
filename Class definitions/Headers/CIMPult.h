@@ -4,11 +4,15 @@
 class CIMPult {
 public:
 	CIMPult(void);
-	void CIMLaunch(void);
+	void CIMLaunch(float pos);
 	bool CheckLoad(void);
-	double ArmPosition(void);
+	void Update(float pos);
 	
 private:
 	Talon cim1;
 	Talon cim2;
+	double speed;
+	double voltage;
+	bool launching;
+	float launch_speed;
 };

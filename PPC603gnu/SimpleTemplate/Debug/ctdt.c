@@ -11,6 +11,8 @@ void _GLOBAL__I__Z20FRC_userClassFactoryv();
 
 void _GLOBAL__I__ZN10ComponentsC2Ev();
 
+void _GLOBAL__I__ZN13PotentiometerC2Ev();
+
 void _GLOBAL__I__ZN13RobotCommandsC2Ev();
 
 void _GLOBAL__I__ZN6ElToroC2Ev();
@@ -74,6 +76,7 @@ void (*_ctors[])() =
     {
     _GLOBAL__I__Z20FRC_userClassFactoryv,
     _GLOBAL__I__ZN10ComponentsC2Ev,
+    _GLOBAL__I__ZN13PotentiometerC2Ev,
     _GLOBAL__I__ZN13RobotCommandsC2Ev,
     _GLOBAL__I__ZN6ElToroC2Ev,
     _GLOBAL__I__ZN7CIMPultC2Ev,
@@ -109,6 +112,8 @@ void (*_ctors[])() =
 void _GLOBAL__D__Z20FRC_userClassFactoryv();
 
 void _GLOBAL__D__ZN10ComponentsC2Ev();
+
+void _GLOBAL__D__ZN13PotentiometerC2Ev();
 
 void _GLOBAL__D__ZN13RobotCommandsC2Ev();
 
@@ -163,6 +168,7 @@ void (*_dtors[])() =
     {
     _GLOBAL__D__Z20FRC_userClassFactoryv,
     _GLOBAL__D__ZN10ComponentsC2Ev,
+    _GLOBAL__D__ZN13PotentiometerC2Ev,
     _GLOBAL__D__ZN13RobotCommandsC2Ev,
     _GLOBAL__D__ZN6ElToroC2Ev,
     _GLOBAL__D__ZN7CIMPultC2Ev,

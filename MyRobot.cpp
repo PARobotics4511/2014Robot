@@ -1,5 +1,7 @@
 #include "Class Definitions\Headers\RobotCommands.h"
 #include <cmath>
+#include "math.h"
+#include <algorithm>
 
 class RobotDemo : public SimpleRobot
 {
@@ -10,6 +12,8 @@ public:
 	RobotDemo() : notLogitech(1), CIMeon() {
 		CIMeon.cComponents.DriveTrain.SetExpiration(0.1);
 		CIMeon.cComponents.DriveTrain.SetSafetyEnabled(true);
+		CIMeon.cComponents.DriveTrain.SetInvertedMotor(CIMeon.cComponents.DriveTrain.kFrontRightMotor,true);
+		CIMeon.cComponents.DriveTrain.SetInvertedMotor(CIMeon.cComponents.DriveTrain.kRearRightMotor,true);
 	}
 
 	void Autonomous()
@@ -20,33 +24,42 @@ public:
 	void OperatorControl()
 	{
 		bool buttonPressed1 = false;
-		float deadzone_y = notLogitech.GetX();
-		float deadzone_x = -notLogitech.GetY();
+		float deadzone_x = notLogitech.GetX();
+		float deadzone_y = -notLogitech.GetY();
 		float deadzone_z = notLogitech.GetRawAxis(4)/3.0;
 		
 		while (IsOperatorControl())
 		{
-			deadzone_x = -notLogitech.GetY();
-			deadzone_y = notLogitech.GetX();
-			deadzone_z = notLogitech.GetRawAxis(4)/3.0;
+			deadzone_x = notLogitech.GetX();
+			deadzone_y = notLogitech.GetY();
+			deadzone_z = notLogitech.GetRawAxis(4);
 			
-			if (pow((deadzone_x*deadzone_x+deadzone_y*deadzone_y),0.5) < 0.15) {
-				deadzone_x = 0;
-				deadzone_y = 0;
-			}
-			if (abs(deadzone_z) < 0.15) {
-				deadzone_z = 0;
-			}
+			if (deadzone_x>0) deadzone_x = max(deadzone_x-0.25,0)*(1/0.75);
+			if (deadzone_y>0) deadzone_y = max(deadzone_y-0.25,0)*(1/0.75);
+			if (deadzone_z>0) deadzone_z = max(deadzone_z-0.15,0)*(1/0.85);
+			if (deadzone_x<0) deadzone_x = min(deadzone_x+0.25,0)*(1/0.75);
+			if (deadzone_y<0) deadzone_y = min(deadzone_y+0.25,0)*(1/0.75);
+			if (deadzone_z<0) deadzone_z = min(deadzone_z+0.15,0)*(1/0.85);
+			deadzone_z /= 3;
 			
 			if (notLogitech.GetRawButton(1) and not buttonPressed1) {
 				CIMeon.cComponents.cEyePad.picFunctions();
 				buttonPressed1 = true;
-				CIMeon.cComponents.cEyePad.m_LCD->UpdateLCD();
+				if (CIMeon.cComponents.cEyePad.rHot) CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: True");
+				else if (not CIMeon.cComponents.cEyePad.rHot) CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: False");
+				CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(1),1,"Distance to goal: %f",CIMeon.cComponents.cEyePad.rDistance);
 			}
 			else buttonPressed1 = false;
 			
-			CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(deadzone_x, deadzone_y, deadzone_z+0.025); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
 			
+			if (notLogitech.GetRawButton(2)) {
+				CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(3),1,"(^_^)");
+				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.potentiometer.ana->GetVoltage());
+			}
+			
+			CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(deadzone_x, deadzone_y, deadzone_z); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
+			CIMeon.cComponents.cElToro.Set(notLogitech.GetRawAxis(3)/1.5);
+			CIMeon.cComponents.cycle();
 			Wait(0.005);
 		}
 	}

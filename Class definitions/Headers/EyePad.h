@@ -44,6 +44,7 @@ struct TargetReport {
 
 class EyePad {
 private:
+	bool hot;
 	double distance;
 	int vTargX;
 public:
@@ -56,11 +57,11 @@ public:
 	double ratioToScore(double ratio);
 	bool hotOrNot(TargetReport target);
 	double computeDistance (BinaryImage *image, ParticleAnalysisReport *report);
-	DriverStationLCD *m_LCD;
 	double getAlignment();
 	
 	
 	Scores *scores;
 	TargetReport target;
 	const double & rDistance;
+	const bool & rHot;
 };

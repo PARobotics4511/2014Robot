@@ -1,5 +1,13 @@
 #include "Headers\Components.h"
 
-Components::Components(void) : cCIMPult(), cElToro(), DriveTrain(4,5,6,7), cEyePad(), DriveTalon1(4), DriveTalon2(5), DriveTalon3(6), DriveTalon4(7) {
-	
+Components::Components(void) : cCIMPult(), cElToro(), DriveTrain(3,2,7,6), cEyePad(), DriveTalon1(2), DriveTalon2(3), DriveTalon3(6), DriveTalon4(7), potentiometer() {
+	//                                                Look at "RobotDrive.h" for configuration
+	m_LCD = DriverStationLCD::GetInstance();
+}
+
+void Components::cycle(void) {
+	cElToro.Update();
+	cCIMPult.Update(potentiometer.ana->GetVoltage());
+	m_LCD->Printf(DriverStationLCD::Line(2),1,"Pot Voltage: %f",potentiometer.ana->GetVoltage());
+	m_LCD->UpdateLCD();
 }
