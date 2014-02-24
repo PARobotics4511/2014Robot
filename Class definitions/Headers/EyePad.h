@@ -23,7 +23,7 @@
 
 //Maximum number of particles to process
 #define MAX_PARTICLES 8
-	
+
 //Structure to represent the scores for the various tests used for target identification
 struct Scores {
 	double rectangularity;
@@ -47,9 +47,10 @@ private:
 	bool hot;
 	double distance;
 	int vTargX;
+	double pToM;
 public:
 	EyePad(void);
-	
+
 	void picFunctions();
 	double scoreAspectRatio(BinaryImage *image, ParticleAnalysisReport *report, bool vertical);
 	bool scoreCompare(Scores scores, bool vertical);
@@ -58,8 +59,9 @@ public:
 	bool hotOrNot(TargetReport target);
 	double computeDistance (BinaryImage *image, ParticleAnalysisReport *report);
 	double getAlignment();
-	
-	
+	double lockOn();
+
+
 	Scores *scores;
 	TargetReport target;
 	const double & rDistance;

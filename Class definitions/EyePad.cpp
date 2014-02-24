@@ -24,23 +24,23 @@ void EyePad::picFunctions() {
 	thresholdImage->Write("/threshold.bmp");
 	BinaryImage *filteredImage = thresholdImage->ParticleFilter(criteria, 1);	//Remove small particles
 	filteredImage->Write("Filtered.bmp");
-	
+
 	//analyzes the particles and turns them into scores
 	vector<ParticleAnalysisReport> *reports = filteredImage->GetOrderedParticleAnalysisReports();  //get a particle analysis report for each particle
 	verticalTargetCount = horizontalTargetCount = 0;
 	scores = new Scores[reports->size()];
-	
+
 	double height;
-	
+
 	if(scores > 0) {
 		for (unsigned int i = 0; i < MAX_PARTICLES && i < reports->size(); i++) {
 			ParticleAnalysisReport *report = &(reports->at(i));
-						
+
 			//Score each particle on rectangularity and aspect ratio
 			scores[i].rectangularity = scoreRectangularity(report);
 			scores[i].aspectRatioVertical = scoreAspectRatio(filteredImage, report, true);
-			scores[i].aspectRatioHorizontal = scoreAspectRatio(filteredImage, report, false);			
-						
+			scores[i].aspectRatioHorizontal = scoreAspectRatio(filteredImage, report, false);
+
 			//Check if the particle is a horizontal target, if not, check if it's a vertical target
 			if(scoreCompare(scores[i], false)) {
 				//m_LCD->Printf(DriverStationLCD::Line(0),1,"ptcle %d is a H-Targ centX: %d centY: %d", i, report->center_mass_x, report->center_mass_y);
@@ -54,9 +54,9 @@ void EyePad::picFunctions() {
 				//m_LCD->Printf(DriverStationLCD::Line(0),1,"particle: %d  is not a Target centerX: %d  centerY: %d \n", i, report->center_mass_x, report->center_mass_y);
 			}
 			//m_LCD->Printf(DriverStationLCD::Line(1),1,"Scores rect: %f  ARvert: %f", scores[i].rectangularity, scores[i].aspectRatioVertical);
-			//m_LCD->Printf(DriverStationLCD::Line(2),1,"ARhoriz: %f", scores[i].aspectRatioHorizontal);	
+			//m_LCD->Printf(DriverStationLCD::Line(2),1,"ARhoriz: %f", scores[i].aspectRatioHorizontal);
 		}
-	
+
 
 		//Zero out scores and set verticalIndex to first target in case there are no horizontal targets
 		target.totalScore = target.leftScore = target.rightScore = target.tapeWidthScore = target.verticalScore = 0;
@@ -67,12 +67,12 @@ void EyePad::picFunctions() {
 			for (int j = 0; j < horizontalTargetCount; j++) {
 				ParticleAnalysisReport *horizontalReport = &(reports->at(horizontalTargets[j]));
 				double horizWidth, horizHeight, vertWidth, leftScore, rightScore, tapeWidthScore, verticalScore, total;
-		
+
 				//Measure equivalent rectangle sides for use in score calculation
 				imaqMeasureParticle(filteredImage->GetImaqImage(), horizontalReport->particleIndex, 0, IMAQ_MT_EQUIVALENT_RECT_LONG_SIDE, &horizWidth);
 				imaqMeasureParticle(filteredImage->GetImaqImage(), verticalReport->particleIndex, 0, IMAQ_MT_EQUIVALENT_RECT_SHORT_SIDE, &vertWidth);
 				imaqMeasureParticle(filteredImage->GetImaqImage(), horizontalReport->particleIndex, 0, IMAQ_MT_EQUIVALENT_RECT_SHORT_SIDE, &horizHeight);
-							
+
 				//Determine if the horizontal target is in the expected location to the left of the vertical target
 				leftScore = ratioToScore(1.2*(verticalReport->boundingRect.left - horizontalReport->center_mass_x)/horizWidth);
 				//Determine if the horizontal target is in the expected location to the right of the  vertical target
@@ -83,7 +83,7 @@ void EyePad::picFunctions() {
 				verticalScore = ratioToScore(1-(verticalReport->boundingRect.top - horizontalReport->center_mass_y)/(4*horizHeight));
 				total = leftScore > rightScore ? leftScore:rightScore;
 				total += tapeWidthScore + verticalScore;
-							
+
 				//If the target is the best detected so far store the information about it
 				if(total > target.totalScore) {
 					target.horizontalIndex = horizontalTargets[j];
@@ -95,11 +95,11 @@ void EyePad::picFunctions() {
 					target.verticalScore = verticalScore;
 				}
 			}
-		
+
 			//Determine if the best target is a Hot target
 			target.Hot = hotOrNot(target);
 		}
-		
+
 		if(verticalTargetCount > 0) {
 			//Information about the target is contained in the "target" structure
 			//To get measurement information such as sizes or locations use the
@@ -107,6 +107,7 @@ void EyePad::picFunctions() {
 			//ParticleAnalysisReport *distanceReport = &(reports->at(target.verticalIndex));
 			//double distance = computeDistance(filteredImage, distanceReport);
 			//distance = 0.852/tan((0.445*height/Y_IMAGE_RES));
+			pToM = 0.8636/report->boundingRect.height; //Czech that "height" the correct variable
 			if(target.Hot) {
 				hot = true;
 			}
@@ -116,14 +117,14 @@ void EyePad::picFunctions() {
 		}
 	}
 }
-	
+
 double EyePad::scoreAspectRatio(BinaryImage *image, ParticleAnalysisReport *report, bool vertical) {
 	double rectLong, rectShort, idealAspectRatio, aspectRatio;
 	idealAspectRatio = vertical ? (4.0/32) : (23.5/4);	//Vertical reflector 4" wide x 32" tall, horizontal 23.5" wide x 4" tall
-		
+
 	imaqMeasureParticle(image->GetImaqImage(), report->particleIndex, 0, IMAQ_MT_EQUIVALENT_RECT_LONG_SIDE, &rectLong);
 	imaqMeasureParticle(image->GetImaqImage(), report->particleIndex, 0, IMAQ_MT_EQUIVALENT_RECT_SHORT_SIDE, &rectShort);
-		
+
 	//Divide width by height to measure aspect ratio
 	if(report->boundingRect.width > report->boundingRect.height){
 		//particle is wider than it is tall, divide long by short
@@ -154,7 +155,7 @@ double EyePad::scoreRectangularity(ParticleAnalysisReport *report) {
 	}
 	else {
 		return 0;
-	}	
+	}
 }
 
 double EyePad::ratioToScore(double ratio) {
@@ -163,11 +164,11 @@ double EyePad::ratioToScore(double ratio) {
 
 bool EyePad::hotOrNot(TargetReport target) {
 	bool isHot = true;
-		
+
 	isHot &= target.tapeWidthScore >= TAPE_WIDTH_LIMIT;
 	isHot &= target.verticalScore >= VERTICAL_SCORE_LIMIT;
 	isHot &= (target.leftScore > LR_SCORE_LIMIT) | (target.rightScore > LR_SCORE_LIMIT);
-		
+
 	return isHot;
 }
 
@@ -175,13 +176,13 @@ double EyePad::computeDistance (BinaryImage *image, ParticleAnalysisReport *repo
 	/*
 	double rectLong, height;
 	int targetHeight;
-		
+
 	imaqMeasureParticle(image->GetImaqImage(), report->particleIndex, 0, IMAQ_MT_EQUIVALENT_RECT_LONG_SIDE, &rectLong);
 	//using the smaller of the estimated rectangle long side and the bounding rectangle height results in better performance
 	//on skewed rectangles
 	height = min(report->boundingRect.height, rectLong);
 	targetHeight = 32;
-		
+
 	return Y_IMAGE_RES * targetHeight / (height * 12 * 2 * tan(VIEW_ANGLE*PI/(180*2)));
 	*/
 	distance = 0.852/tan((0.445*report->boundingRect.height/Y_IMAGE_RES));
@@ -189,5 +190,12 @@ double EyePad::computeDistance (BinaryImage *image, ParticleAnalysisReport *repo
 }
 
 double EyePad::getAlignment(void) {
-	return 0;
+	return 0.0;
+}
+
+double EyePad::lockOn(void) {
+
+    picFunctions();
+    // Tzcheckh alignment
+    return 0.0;
 }

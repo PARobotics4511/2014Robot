@@ -27,13 +27,13 @@ public:
 		float deadzone_x = notLogitech.GetX();
 		float deadzone_y = -notLogitech.GetY();
 		float deadzone_z = notLogitech.GetRawAxis(4)/3.0;
-		
+
 		while (IsOperatorControl())
 		{
 			deadzone_x = notLogitech.GetX();
 			deadzone_y = notLogitech.GetY();
 			deadzone_z = notLogitech.GetRawAxis(4);
-			
+
 			if (deadzone_x>0) deadzone_x = max(deadzone_x-0.25,0)*(1/0.75);
 			if (deadzone_y>0) deadzone_y = max(deadzone_y-0.25,0)*(1/0.75);
 			if (deadzone_z>0) deadzone_z = max(deadzone_z-0.15,0)*(1/0.85);
@@ -41,8 +41,11 @@ public:
 			if (deadzone_y<0) deadzone_y = min(deadzone_y+0.25,0)*(1/0.75);
 			if (deadzone_z<0) deadzone_z = min(deadzone_z+0.15,0)*(1/0.85);
 			deadzone_z /= 3;
-			
-			if (notLogitech.GetRawButton(1) and not buttonPressed1) {
+
+			//
+			// Remap this button to right shoulder; left shoulder will be lock-on
+			//
+			if (notLogitech.GetRawButton(2) and not buttonPressed1) {
 				CIMeon.cComponents.cEyePad.picFunctions();
 				buttonPressed1 = true;
 				if (CIMeon.cComponents.cEyePad.rHot) CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: True");
@@ -50,23 +53,19 @@ public:
 				CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(1),1,"Distance to goal: %f",CIMeon.cComponents.cEyePad.rDistance);
 			}
 			else buttonPressed1 = false;
-			
-			
-			if (notLogitech.GetRawButton(2)) {
-				CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(3),1,"(^_^)");
+
+
+			if (notLogitech.GetRawButton(1)) {
 				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.potentiometer.ana->GetVoltage());
 			}
-			
+
 			CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(deadzone_x, deadzone_y, deadzone_z); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
-			CIMeon.cComponents.cElToro.Set(notLogitech.GetRawAxis(3)/1.5);
+			CIMeon.cComponents.cElToro.Set(-notLogitech.GetRawAxis(3)/1.5);
 			CIMeon.cComponents.cycle();
 			Wait(0.005);
 		}
 	}
-	
-	/**
-	 * Runs during test mode
-	 */
+
 	void Test() {
 
 	}

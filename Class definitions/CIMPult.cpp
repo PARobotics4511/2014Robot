@@ -7,6 +7,7 @@ CIMPult::CIMPult(void) : cim1(4), cim2(8) {
 }
 
 void CIMPult::CIMLaunch(float pos) {
+    launchVolt = launchAngle;
 	if (not launching and pos <= 0.15) launching = true;
 }
 
