@@ -1,6 +1,6 @@
 #include "Headers\CIMPult.h"
 
-CIMPult::CIMPult(void) : cim1(4), cim2(8) {
+CIMPult::CIMPult(void) : cim1(4), cim2(8), minVolt(0.5), maxVolt(2.0) {
 	speed = 0.0;
 	launching = false;
 	launch_speed = 0;

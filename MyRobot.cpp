@@ -14,11 +14,50 @@ public:
 		CIMeon.cComponents.DriveTrain.SetSafetyEnabled(true);
 		CIMeon.cComponents.DriveTrain.SetInvertedMotor(CIMeon.cComponents.DriveTrain.kFrontRightMotor,true);
 		CIMeon.cComponents.DriveTrain.SetInvertedMotor(CIMeon.cComponents.DriveTrain.kRearRightMotor,true);
+		CIMeon.cComponents.m_LCD->Clear();
+
 	}
 
 	void Autonomous()
 	{
-		//Do nothing for now
+		while(IsAutonomous)
+		{
+		    for(int i = 0; i < 2000; i++)
+		    {
+		        switch (i)
+		        {
+		            case 0:
+                        CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(0,0.8,0);
+                        break;
+
+                    case 200:
+                        CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(0,0,0);
+                        break;
+
+                    case 300:
+                        CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.potentiometer.ana->GetVoltage());
+                        break;
+
+                    case 500:
+                        CIMeon.cComponents.cElToro.Set(-1.0);
+                        break;
+
+                    case 900:
+                        CIMeon.cComponents.cElToro.Set(-1.0);
+                        break;
+
+                    case 1500:
+                        CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.potentiometer.ana->GetVoltage());
+                        break;
+
+                    default:
+                        break;
+
+		        }
+		        CIMeon.cComponents.cycle();
+		        Wait(0.005);
+		    }
+		}
 	}
 
 	void OperatorControl()
