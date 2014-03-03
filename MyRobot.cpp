@@ -35,7 +35,7 @@ public:
                         break;
 
                     case 300:
-                        CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.potentiometer.ana->GetVoltage());
+                        CIMeon.cComponents.cCIMPult.CIMLaunch();
                         break;
 
                     case 500:
@@ -47,7 +47,7 @@ public:
                         break;
 
                     case 1500:
-                        CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.potentiometer.ana->GetVoltage());
+                        CIMeon.cComponents.cCIMPult.CIMLaunch();
                         break;
 
                     default:
@@ -87,15 +87,17 @@ public:
 			if (notLogitech.GetRawButton(2) and not buttonPressed1) {
 				CIMeon.cComponents.cEyePad.picFunctions();
 				buttonPressed1 = true;
-				if (CIMeon.cComponents.cEyePad.rHot) CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: True");
-				else if (not CIMeon.cComponents.cEyePad.rHot) CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: False");
+				if (CIMeon.cComponents.cEyePad.rHot)
+                    CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: True");
+				else if (not CIMeon.cComponents.cEyePad.rHot)
+                    CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(0),1,"Hot: False");
 				CIMeon.cComponents.m_LCD->Printf(DriverStationLCD::Line(1),1,"Distance to goal: %f",CIMeon.cComponents.cEyePad.rDistance);
 			}
 			else buttonPressed1 = false;
 
 
 			if (notLogitech.GetRawButton(1)) {
-				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.potentiometer.ana->GetVoltage());
+				CIMeon.cComponents.cCIMPult.CIMLaunch();
 			}
 
 			CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(deadzone_x, deadzone_y, deadzone_z); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful

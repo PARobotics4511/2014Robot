@@ -1,35 +1,38 @@
 #include "Headers\CIMPult.h"
 
 CIMPult::CIMPult(void) : cim1(4), cim2(8), minVolt(0.5), maxVolt(2.0) {
-	speed = 0.0;
 	launching = false;
-	launch_speed = 0;
+	speed = 0.0;
 }
 
-void CIMPult::CIMLaunch(float pos) {
-    launchVolt = launchAngle;
-	if (not launching and pos <= 0.15) launching = true;
+void CIMPult::CIMLaunch(float x = maxVolt, float y = 1.0) {
+    launchVolt = x;
+    launch_speed = y;
+	if (not launching and armVolt <= minVolt+0.05) launching = true;
 }
 
-void CIMPult::Update(float pos) {
-	if (pos > 1.75) {
+void CIMPult::Update() {
+    if (launch_speed > 1.0)
+        launch_speed = 1.0;
+	if (armVolt > maxVolt || armVolt > launchVolt) {
 		launching = false;
-		launch_speed = 0;
+		speed = 0.0;
 	}
 	if (launching) {
-		launch_speed += 0.1;
-		if (launch_speed > 1.0) launch_speed = 1.0;
-		cim1.Set(launch_speed);
-		cim2.Set(launch_speed);
+		speed += 0.1;
+		if (speed > launching_speed)
+            speed = launching_speed;
+		cim1.Set(speed);
+		cim2.Set(speed);
 	}
 	else {
-		if (pos > 0.1) {
+		if (armVolt > minVolt) {
 			cim1.Set(-0.05);
 			cim2.Set(-0.05);
 		}
 		else {
-			cim1.Set(0);
-			cim2.Set(0);
+			cim1.Set(0.0);
+			cim2.Set(0.0);
 		}
 	}
 }

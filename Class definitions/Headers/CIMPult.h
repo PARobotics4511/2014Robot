@@ -4,18 +4,18 @@
 class CIMPult {
 public:
 	CIMPult(void);
-	void CIMLaunch(float pos, float launchAngle);
+	void CIMLaunch(float,float); // Arguments: position, max angle, max speed
 	bool CheckLoad(void);
-	void Update(float pos);
+	void Update(void);
 
 private:
 	Talon cim1;
 	Talon cim2;
 	double speed;
-	double voltage;
+	double armVolt;
 	bool launching;
-	float launch_speed;
 	const float minVolt;
 	const float maxVolt;
 	float launchVolt;
+	float launch_speed;
 };
