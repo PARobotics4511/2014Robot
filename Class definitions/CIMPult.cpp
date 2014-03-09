@@ -1,9 +1,11 @@
 #include "Headers\CIMPult.h"
 
-CIMPult::CIMPult(void) : cim1(4), cim2(8), minVolt(0.4), maxVolt(2.2), minAngle(10), maxAngle(116) {
+CIMPult::CIMPult(void) : cim1(4), cim2(8), minVolt(0.4), maxVolt(2.3), minAngle(5.0), maxAngle(120.0) {
 	launching = false;
 	speed = 0.0;
 	armVolt = minVolt;
+	launch_speed = 1.0;
+	launchVolt = maxVolt;
 }
 
 void CIMPult::CIMLaunch(void) {
@@ -22,6 +24,8 @@ void CIMPult::CIMLaunch(float x, float y) {
 
 void CIMPult::Update(float x) {
 	armVolt = x;
+	currentVoltSet = max(min(maxVolt,currentVoltSet),minVolt);
+	currentSpeedSet = max(min(currentSpeedSet,1.0),0.0);
     if (launch_speed > 1.0)
         launch_speed = 1.0;
 	if (armVolt > maxVolt || armVolt > launchVolt) {
@@ -29,7 +33,7 @@ void CIMPult::Update(float x) {
 		speed = 0.0;
 	}
 	if (launching) {
-		speed += 0.1;
+		speed += 0.5;
 		if (speed > launch_speed)
             speed = launch_speed;
 		cim1.Set(speed);
@@ -59,4 +63,8 @@ float CIMPult::degToVolt(float x) {
 		return maxVolt;
 	else
 		return ((x-minAngle)/(maxAngle-minAngle))*(maxVolt-minVolt);
+}
+
+float CIMPult::voltToDeg(float x) {
+	return (x/(maxVolt-minVolt))*(maxAngle-minAngle)+minAngle;
 }

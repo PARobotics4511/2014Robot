@@ -20,41 +20,22 @@ public:
 
 	void Autonomous()
 	{
-		while(IsAutonomous())
-		{
-		    for(int i = 0; i < 2000; i++)
-		    {
-		        switch (i)
-		        {
-		            case 100:
-		            	CIMeon.cComponents.cEyePad.picFunctions();
-                        CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(0,0.8,0);
-                        CIMeon.cComponents.cElToro.Set(-0.9);
-                        break;
-
-                    case 300:
-                        CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(0,0,0);
-                        CIMeon.cComponents.cElToro.Set(0.0);
-                        break;
-
-                    case 500:
-                    	if(CIMeon.cComponents.cEyePad.rHot)
-                        	CIMeon.cComponents.cCIMPult.CIMLaunch();
-                        break;
-                      
-                    case 1100:
-                    	if(CIMeon.cComponents.cEyePad.rHot)
-                    		CIMeon.cComponents.cCIMPult.CIMLaunch();
-                    	break;
-
-                    default:
-                        break;
-
-		        }
-		        CIMeon.cComponents.cycle();
-		        Wait(0.005);
-		    }
-		}
+	    for(int i = 0; i < 2000; i++)
+	    {
+	    	if (i >= 100 && i < 500)
+	    		CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(0.0,-0.4,0.0);
+	    	else
+	    		CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(0.0,0.0,0.0);
+	    		
+	    	if (i >= 0 && i < 100)
+	    		CIMeon.cComponents.cElToro.Set(0.9);
+	    	else
+	    		CIMeon.cComponents.cElToro.Set(0.0);
+	    	
+	        //if (i == 1100) CIMeon.cComponents.cCIMPult.CIMLaunch();
+	        CIMeon.cComponents.cycle();
+	        Wait(0.005);
+	    }
 	}
 
 	void OperatorControl()
@@ -97,15 +78,20 @@ public:
 				CIMeon.cComponents.cCIMPult.CIMLaunch();
 			}
 			else if (notLogitech.GetRawButton(2)) {
-				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.cCIMPult.degToVolt(100.0));
+				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.cCIMPult.degToVolt(110.0),1.0);
 			}
 			else if (notLogitech.GetRawButton(3)) {
-				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.cCIMPult.degToVolt(110.0),0.3);
+				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.cCIMPult.degToVolt(120.0),0.3);
 			}
 			else if (notLogitech.GetRawButton(4)) {
-				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.cCIMPult.degToVolt(30.0));
+				//CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.cCIMPult.currentVoltSet,CIMeon.cComponents.cCIMPult.currentSpeedSet);
+				CIMeon.cComponents.cCIMPult.CIMLaunch(CIMeon.cComponents.cCIMPult.degToVolt(100.0),1.0);
 			}
-
+			
+			if (notLogitech.GetDirectionDegrees() == 90) CIMeon.cComponents.cCIMPult.currentSpeedSet += 0.05;
+			if (notLogitech.GetDirectionDegrees() == 270) CIMeon.cComponents.cCIMPult.currentSpeedSet -= 0.05;
+			if (notLogitech.GetDirectionDegrees() == 180) CIMeon.cComponents.cCIMPult.currentVoltSet += 0.1;
+			if (notLogitech.GetDirectionDegrees() == 0 || notLogitech.GetDirectionDegrees() == 360) CIMeon.cComponents.cCIMPult.currentVoltSet -= 0.1;
 			CIMeon.cComponents.DriveTrain.MecanumDrive_Cartesian(deadzone_x, deadzone_y, deadzone_z); //Drive with the motors on channels 4,5,6,7.  The arguments are x, y, direction, and not useful
 			CIMeon.cComponents.cElToro.Set(-notLogitech.GetRawAxis(3)/1.5);
 			CIMeon.cComponents.cycle();

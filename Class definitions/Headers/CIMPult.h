@@ -10,6 +10,9 @@ public:
 	bool CheckLoad(void);
 	void Update(float); // Argument: armVolt
 	float degToVolt(float);
+	float voltToDeg(float);
+	float currentVoltSet;
+	float currentSpeedSet;
 
 private:
 	Talon cim1;
