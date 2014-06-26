@@ -1,8 +1,6 @@
 2014Robot
 =========
 
-If your IQ is particularly low and you cannot figure out what this code does, you came to the correct place:
+This the code for the Providence Academy FIRST Robotics 2014 robot (whose name is CIMeon). This robot had the functionality of picking up and catching (to a limited extent) exercise ball and consequently launch it. The code is all in C++ despite the erroneous identification of being in D. This code must be compiled and deployed using WindRiver as provided by FIRST.
 
-This is the code for the 2014 Robot. My name is CIMeon. My IQ is likely a whole 20 points higher than yours. Because of your low IQ, it is best that you stop touching the computer now as you could cause permanent damage.
-
---CIMeon
+--Power Amplified
