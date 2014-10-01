@@ -98,7 +98,6 @@ void EyePad::picFunctions() {
 
 			//Determine if the best target is a Hot target
 			target.Hot = hotOrNot(target);
-			hot = hotOrNot(target);
 		}
 
 		if(verticalTargetCount > 0) {
@@ -108,9 +107,7 @@ void EyePad::picFunctions() {
 			//ParticleAnalysisReport *distanceReport = &(reports->at(target.verticalIndex));
 			//double distance = computeDistance(filteredImage, distanceReport);
 			//distance = 0.852/tan((0.445*height/Y_IMAGE_RES));
-			
-			//pToM = 0.8636/report->boundingRect.height; //Czech that "height" the correct variable
-			
+			pToM = 0.8636/report->boundingRect.height; //Czech that "height" the correct variable
 			if(target.Hot) {
 				hot = true;
 			}

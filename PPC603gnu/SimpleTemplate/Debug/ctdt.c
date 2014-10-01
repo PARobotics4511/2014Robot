@@ -59,8 +59,6 @@ void _GLOBAL__I__ZN12WriteManagerC2ER30FlushableOutgoingEntryReceiverR15NTThread
 
 void _GLOBAL__I__ZN21ClientConnectionState24DISCONNECTED_FROM_SERVERE();
 
-void _GLOBAL__I__ZN12DataIOStreamC2EP8IOStream();
-
 void _GLOBAL__I__ZN18NetworkTableServerC2ER16IOStreamProviderR28NetworkTableEntryTypeManagerR15NTThreadManager();
 
 void _GLOBAL__I__ZN21ServerConnectionState26GOT_CONNECTION_FROM_CLIENTE();
@@ -102,7 +100,6 @@ void (*_ctors[])() =
     _GLOBAL__I_OutgoingEntryReceiver_NULL,
     _GLOBAL__I__ZN12WriteManagerC2ER30FlushableOutgoingEntryReceiverR15NTThreadManagerR30AbstractNetworkTableEntryStorem,
     _GLOBAL__I__ZN21ClientConnectionState24DISCONNECTED_FROM_SERVERE,
-    _GLOBAL__I__ZN12DataIOStreamC2EP8IOStream,
     _GLOBAL__I__ZN18NetworkTableServerC2ER16IOStreamProviderR28NetworkTableEntryTypeManagerR15NTThreadManager,
     _GLOBAL__I__ZN21ServerConnectionState26GOT_CONNECTION_FROM_CLIENTE,
     _GLOBAL__I__ZN12BooleanArray20BOOLEAN_ARRAY_RAW_IDE,
@@ -154,8 +151,6 @@ void _GLOBAL__D_OutgoingEntryReceiver_NULL();
 
 void _GLOBAL__D__ZN12WriteManagerC2ER30FlushableOutgoingEntryReceiverR15NTThreadManagerR30AbstractNetworkTableEntryStorem();
 
-void _GLOBAL__D__ZN12DataIOStreamC2EP8IOStream();
-
 void _GLOBAL__D__ZN18NetworkTableServerC2ER16IOStreamProviderR28NetworkTableEntryTypeManagerR15NTThreadManager();
 
 void _GLOBAL__D__ZN21ServerConnectionState26GOT_CONNECTION_FROM_CLIENTE();
@@ -192,7 +187,6 @@ void (*_dtors[])() =
     _GLOBAL__D__ZN30AbstractNetworkTableEntryStoreC2ER20TableListenerManager,
     _GLOBAL__D_OutgoingEntryReceiver_NULL,
     _GLOBAL__D__ZN12WriteManagerC2ER30FlushableOutgoingEntryReceiverR15NTThreadManagerR30AbstractNetworkTableEntryStorem,
-    _GLOBAL__D__ZN12DataIOStreamC2EP8IOStream,
     _GLOBAL__D__ZN18NetworkTableServerC2ER16IOStreamProviderR28NetworkTableEntryTypeManagerR15NTThreadManager,
     _GLOBAL__D__ZN21ServerConnectionState26GOT_CONNECTION_FROM_CLIENTE,
     _GLOBAL__D__ZN12BooleanArray20BOOLEAN_ARRAY_RAW_IDE,

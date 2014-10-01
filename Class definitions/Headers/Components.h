@@ -21,6 +21,4 @@ public:
 	Talon DriveTalon3;
 	Talon DriveTalon4;
 	Potentiometer potentiometer;
-	AnalogChannel * Sonar;
-	
 };
